@@ -52,6 +52,7 @@ export class TextInput extends Component<InputProps, InputState> {
                 type="text"
                 className={className}
                 style={this.props.style}
+                inputMode='numeric'
                 value={this.getCurrentValue()}
                 tabIndex={this.props.tabIndex}
                 onChange={this.onChangeHandle}
