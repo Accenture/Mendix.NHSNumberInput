@@ -112,7 +112,7 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
         const maxLength = target.maxLength;
 
         const myLength = target.selectionStart!;
-        if (myLength >= maxLength && e.keyCode > 47 && e.keyCode < 58) {
+        if (myLength >= maxLength && ((e.keyCode > 47 && e.keyCode < 58) || (e.keyCode > 95 && e.keyCode < 106))) {
             const next = target.nextElementSibling as HTMLElement;
             if (next != null && next.tagName.toLowerCase() === "input") {
                 next.focus();
