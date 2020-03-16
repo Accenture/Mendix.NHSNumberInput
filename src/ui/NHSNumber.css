@@ -1,0 +1,13 @@
+/*
+Place your custom CSS here
+*/
+
+.nhs-input-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nhs-input-wrapper .form-control:not(:last-child) {
+    margin-right: 8px;
+}
