@@ -1,7 +1,7 @@
 {
   "name": "nhsnumber",
   "widgetName": "NHSNumber",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Input for NHS number",
   "copyright": "Objectivity Ltd. 2017",
   "author": "Kamil Marcinkowski",

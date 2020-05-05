@@ -21,15 +21,13 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
     private secondInputValue = "";
     private thirdInputValue = "";
 
-    private interval: any = null;
-
     constructor(props: NHSNumberContainerProps) {
         super(props);
         this.state = { loading: true };
     }
 
-    componentDidMount(): void {
-        this.interval = setInterval(() => {
+    componentDidUpdate(): void {
+        if (this.state.loading) {
             if (this.props.textAttribute.status === "available") {
                 this.firstInputValue = this.props.textAttribute.value
                     ? this.props.textAttribute.value.substr(0, 3)
@@ -40,17 +38,15 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
                 this.thirdInputValue = this.props.textAttribute.value
                     ? this.props.textAttribute.value.substr(6, 4)
                     : "";
-
                 this.setState({ loading: false });
-                clearInterval(this.interval);
             }
-        }, 50);
+        }
     }
 
     render(): ReactNode {
         const validationFeedback = this.props.textAttribute.validation;
         const required = true;
-        return !this.state.loading ? (
+        return (
             <Fragment>
                 <div className="nhs-input-wrapper" role="group" aria-labelledby={`${this.props.id}-label`}>
                     <TextInput
@@ -102,8 +98,6 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
                 </div>
                 <Alert id={this.props.id + "-error"}>{validationFeedback}</Alert>
             </Fragment>
-        ) : (
-            <Fragment></Fragment>
         );
     }
 
