@@ -14,6 +14,8 @@
                     <description/>
                     <attributeTypes>
                         <attributeType name="String"/>
+                        <attributeType name="Long"/>
+                        <attributeType name="Integer"/>
                     </attributeTypes>
                 </property>
             </propertyGroup>
@@ -22,14 +24,15 @@
             </propertyGroup>
             <propertyGroup caption="Editability">
                 <systemProperty key="Editability"/>
+                <property key="ReadOnlyStyle" type="enumeration" defaultValue="control">
+                	<caption>Read-only style</caption>
+                    <description/>
+                    <enumerationValues>
+                        <enumerationValue key="control">Control</enumerationValue>
+                        <enumerationValue key="text">Text</enumerationValue>
+                    </enumerationValues>
+                </property>
             </propertyGroup>
-            <propertyGroup caption="Visibility">
-                <systemProperty key="Visibility"/>
-            </propertyGroup>
-        </propertyGroup>
-        <propertyGroup caption="Common">
-            <systemProperty key="Name"/>
-            <systemProperty key="TabIndex"/>
         </propertyGroup>
         <propertyGroup caption="Events">
             <propertyGroup caption="Events">

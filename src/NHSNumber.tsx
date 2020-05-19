@@ -1,5 +1,5 @@
-import React, { Component, Fragment, ReactNode, createElement, KeyboardEvent } from "react";
 import { hot } from "react-hot-loader/root";
+import React, { Component, Fragment, ReactNode, createElement, KeyboardEvent } from "react";
 import { NHSNumberContainerProps } from "../typings/NHSNumberProps";
 import { TextInput } from "./components/TextInput";
 import { Alert } from "./components/Alert";
@@ -30,13 +30,13 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
         if (this.state.loading) {
             if (this.props.textAttribute.status === "available") {
                 this.firstInputValue = this.props.textAttribute.value
-                    ? this.props.textAttribute.value.substr(0, 3)
+                    ? this.props.textAttribute.value.toString().substr(0, 3)
                     : "";
                 this.secondInputValue = this.props.textAttribute.value
-                    ? this.props.textAttribute.value.substr(3, 3)
+                    ? this.props.textAttribute.value.toString().substr(3, 3)
                     : "";
                 this.thirdInputValue = this.props.textAttribute.value
-                    ? this.props.textAttribute.value.substr(6, 4)
+                    ? this.props.textAttribute.value.toString().substr(6, 4)
                     : "";
                 this.setState({ loading: false });
             }
@@ -46,7 +46,13 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
     render(): ReactNode {
         const validationFeedback = this.props.textAttribute.validation;
         const required = true;
-        return (
+        const readOnlyText = this.props.ReadOnlyStyle === "text" && this.props.textAttribute.readOnly;
+        return readOnlyText ? (
+            <Fragment>
+                <div className="form-control-static">{`${this.props.textAttribute.value}`}</div>
+                <Alert id={this.props.id + "-error"}>{validationFeedback}</Alert>
+            </Fragment>
+        ) : (
             <Fragment>
                 <div className="nhs-input-wrapper" role="group" aria-labelledby={`${this.props.id}-label`}>
                     <TextInput
@@ -125,7 +131,7 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
         }
         const setValue =
             this.firstInputRef.current!.value + this.secondInputRef.current!.value + this.thirdInputRef.current!.value;
-        this.props.textAttribute.setValue(setValue);
+        this.props.textAttribute.setTextValue(setValue);
 
         this.firstInputValue = this.firstInputRef.current!.value;
         this.secondInputValue = this.secondInputRef.current!.value;

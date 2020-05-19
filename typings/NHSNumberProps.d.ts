@@ -14,17 +14,22 @@ interface CommonProps {
     tabIndex: number;
 }
 
+export type ReadOnlyStyleEnum = "control" | "text";
+
 export interface NHSNumberContainerProps extends CommonProps {
-    textAttribute: EditableValue<string>;
+    textAttribute: EditableValue<string | BigJs.Big>;
+    ReadOnlyStyle: ReadOnlyStyleEnum;
     onChangeAction?: ActionValue;
 }
 
 export interface NHSNumberPreviewProps extends CommonProps {
     textAttribute: string;
+    ReadOnlyStyle: ReadOnlyStyleEnum;
     onChangeAction?: ActionPreview;
 }
 
 export interface VisibilityMap {
     textAttribute: boolean;
+    ReadOnlyStyle: boolean;
     onChangeAction: boolean;
 }
