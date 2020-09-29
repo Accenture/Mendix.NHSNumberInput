@@ -15,7 +15,6 @@
                     <attributeTypes>
                         <attributeType name="String"/>
                         <attributeType name="Long"/>
-                        <attributeType name="Integer"/>
                     </attributeTypes>
                 </property>
             </propertyGroup>

@@ -28,24 +28,16 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
 
     componentDidUpdate(): void {
         if (this.state.loading) {
-            if (this.props.textAttribute.status === "available") {
-                this.firstInputValue = this.props.textAttribute.value
-                    ? this.props.textAttribute.value.toString().substr(0, 3)
-                    : "";
-                this.secondInputValue = this.props.textAttribute.value
-                    ? this.props.textAttribute.value.toString().substr(3, 3)
-                    : "";
-                this.thirdInputValue = this.props.textAttribute.value
-                    ? this.props.textAttribute.value.toString().substr(6, 4)
-                    : "";
-                this.setState({ loading: false });
-            }
+            this.setState({ loading: false });
         }
     }
 
     render(): ReactNode {
         const validationFeedback = this.props.textAttribute.validation;
         const required = true;
+        if (!this.state.loading) {
+            this.setValues();
+        }
         const readOnlyText = this.props.ReadOnlyStyle === "text" && this.props.textAttribute.readOnly;
         return readOnlyText ? (
             <Fragment>
@@ -132,10 +124,31 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
         const setValue =
             this.firstInputRef.current!.value + this.secondInputRef.current!.value + this.thirdInputRef.current!.value;
         this.props.textAttribute.setTextValue(setValue);
+        this.setValues();
+    }
 
-        this.firstInputValue = this.firstInputRef.current!.value;
-        this.secondInputValue = this.secondInputRef.current!.value;
-        this.thirdInputValue = this.thirdInputRef.current!.value;
+    private setValues(): void {
+        if (this.props.textAttribute.validation) {
+            this.firstInputValue = this.props.textAttribute.value
+                ? this.props.textAttribute.value.toString().substr(0, 3)
+                : this.firstInputRef.current!.value;
+            this.secondInputValue = this.props.textAttribute.value
+                ? this.props.textAttribute.value.toString().substr(3, 3)
+                : this.secondInputRef.current!.value;
+            this.thirdInputValue = this.props.textAttribute.value
+                ? this.props.textAttribute.value.toString().substr(6, 4)
+                : this.thirdInputRef.current!.value;
+        } else {
+            this.firstInputValue = this.props.textAttribute.value
+                ? this.props.textAttribute.value.toString().substr(0, 3)
+                : "";
+            this.secondInputValue = this.props.textAttribute.value
+                ? this.props.textAttribute.value.toString().substr(3, 3)
+                : "";
+            this.thirdInputValue = this.props.textAttribute.value
+                ? this.props.textAttribute.value.toString().substr(6, 4)
+                : "";
+        }
     }
 }
 
