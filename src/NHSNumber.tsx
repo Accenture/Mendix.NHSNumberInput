@@ -1,5 +1,5 @@
 import { hot } from "react-hot-loader/root";
-import React, { Component, Fragment, ReactNode, createElement, KeyboardEvent } from "react";
+import React, { Component, Fragment, ReactNode, createElement, KeyboardEvent, ClipboardEvent } from "react";
 import { NHSNumberContainerProps } from "../typings/NHSNumberProps";
 import { TextInput } from "./components/TextInput";
 import { Alert } from "./components/Alert";
@@ -12,6 +12,7 @@ interface InputState {
 
 class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
     private readonly onLeaveHandle = this.onLeave.bind(this);
+    private readonly onPasteHandle = this.handlePaste.bind(this);
     private firstInputRef = React.createRef<HTMLInputElement>();
     private secondInputRef = React.createRef<HTMLInputElement>();
     private thirdInputRef = React.createRef<HTMLInputElement>();
@@ -46,7 +47,12 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
             </Fragment>
         ) : (
             <Fragment>
-                <div className="nhs-input-wrapper" role="group" aria-labelledby={`${this.props.id}-label`}>
+                <div
+                    className="nhs-input-wrapper"
+                    role="group"
+                    aria-labelledby={`${this.props.id}-label`}
+                    onPaste={this.onPasteHandle}
+                >
                     <TextInput
                         id={this.props.id}
                         value={this.firstInputValue}
@@ -125,6 +131,16 @@ class NHSNumber extends Component<NHSNumberContainerProps, InputState> {
             this.firstInputRef.current!.value + this.secondInputRef.current!.value + this.thirdInputRef.current!.value;
         this.props.textAttribute.setTextValue(setValue);
         this.setValues();
+    }
+
+    private handlePaste(event: ClipboardEvent): void {
+        event.preventDefault();
+        let pastedValue = event.clipboardData.getData("text/plain");
+        pastedValue = pastedValue.replace(/\s/g, "").substr(0, 10);
+        if (isNaN(Number(pastedValue))) {
+            return;
+        }
+        this.props.textAttribute.setTextValue(pastedValue);
     }
 
     private setValues(): void {

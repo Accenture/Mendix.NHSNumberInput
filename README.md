@@ -1,17 +1,12 @@
-## NHSNumber
-[Input for NHS number]
+## NHSNumber input
+This widget creates an inputbox group that lets you insert a National Health Service number in format `3-3-4` digits. 
 
 ## Features
-[feature highlights]
+- Conditional editability
+- Paste number into input
+- Selectable read only style
+- Configurable on-change action
+- Compliant with accessibility according to WCAG standards
 
 ## Usage
-[step by step instructions]
-
-## Demo project
-[link to sandbox]
-
-## Issues, suggestions and feature requests
-[link to GitHub issues]
-
-## Development and contribution
-[specify contribute]
+Insert the widget in data view and configure the attribute. Widget accepts attribute types String and Long.
